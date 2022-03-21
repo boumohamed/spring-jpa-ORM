@@ -32,6 +32,12 @@ public class Spring1Application implements CommandLineRunner {
         patientRepository.save(
                 new Patient(null, "Asmae", new Date(), false, 5));
 
+        for (int i = 0; i < 100; i ++)
+        {
+            patientRepository.save(
+                    new Patient(null, "Mohamed"  , new Date(), Math.random() > 0.5?true:false, (int) (Math.random() * 10)));
+        }
+
         List<Patient> patients = patientRepository.findAll();
         patients.forEach(p -> System.out.println(p.getNom()));
         Patient p1 = patientRepository.findById(2L).orElse(null);
