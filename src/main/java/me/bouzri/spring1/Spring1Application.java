@@ -35,11 +35,11 @@ public class Spring1Application implements CommandLineRunner {
         for (int i = 0; i < 100; i ++)
         {
             patientRepository.save(
-                    new Patient(null, "Mohamed"  , new Date(), Math.random() > 0.5?true:false, (int) (Math.random() * 10)));
+                    new Patient(null, "Mohamed"  , new Date(), Math.random() > 0.5, (int) (Math.random() * 10)));
         }
 
         List<Patient> patients = patientRepository.findAll();
-        patients.forEach(p -> System.out.println(p.getNom()));
+
         Patient p1 = patientRepository.findById(2L).orElse(null);
 
         System.out.println(p1.getNom() + " - " + p1.getDateNaissance());
@@ -47,19 +47,19 @@ public class Spring1Application implements CommandLineRunner {
         p1.setNom("Amina El assri");
 
         patientRepository.save(p1);
-        System.out.println(p1.getNom() + " - " + p1.getDateNaissance());
 
-        Page<Patient> patientsPages = patientRepository.findAll(PageRequest.of(0, 2));
 
-        System.out.println("Totale Pages : "+ patientsPages.getTotalPages());
-        System.out.println("Totale Elements : "+ patientsPages.getTotalElements());
-        System.out.println("Num Page : "+ patientsPages.getNumber());
+        Page<Patient> patientsPages = patientRepository.findAll(PageRequest.of(1, 10));
+
+
 
         List<Patient> Content = patientsPages.getContent();
 
         Content.forEach(p -> {
-            System.out.println("===================");
+
             System.out.println("Patient " + p.getId() + " :  " + p.getNom());
+            System.out.println(p.getDateNaissance());
+            System.out.println(p.isMalade());
             System.out.println("===================");
         });
 
